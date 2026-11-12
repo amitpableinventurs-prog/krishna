@@ -17,6 +17,7 @@ import {
   TbStethoscope,
 } from 'react-icons/tb'
 import { photos } from '../data/photos.js'
+import { doctors as allDoctors, initials } from '../data/doctors.js'
 
 const heroSlides = [
   {
@@ -101,26 +102,8 @@ const departments = [
   },
 ]
 
-const doctors = [
-  {
-    name: 'Dr. Ananya Sharma',
-    role: 'Senior Cardiologist',
-    image:
-      'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=700&q=85',
-  },
-  {
-    name: 'Dr. Rahul Mehta',
-    role: 'Orthopaedic Specialist',
-    image:
-      'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=700&q=85',
-  },
-  {
-    name: 'Dr. Kavya Rao',
-    role: 'General Physician',
-    image:
-      'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=700&q=85',
-  },
-]
+// Featured on the home page: the paediatric specialists from the visiting roster.
+const doctors = [6, 8, 14].map((id) => allDoctors.find((doctor) => doctor.id === id))
 
 const facilities = [
   {
@@ -657,19 +640,17 @@ const Home = () => {
           {doctors.map((doctor) => (
             <Link
               to="/doctors"
-              key={doctor.name}
+              key={doctor.id}
               className="group overflow-hidden rounded-3xl border border-sky-200/80 bg-gradient-to-br from-white via-sky-50/50 to-cyan-50 shadow-md transition-all duration-500 hover:-translate-y-2 hover:border-sky-400 hover:shadow-xl"
             >
 
-              <div className="relative h-72 overflow-hidden bg-sky-100">
+              <div className="relative h-56 overflow-hidden bg-sky-100">
 
-                <img
-                  src={doctor.image}
-                  alt={doctor.name}
-                  className="h-full w-full object-cover object-top grayscale-[15%] transition-transform duration-700 group-hover:scale-110 group-hover:grayscale-0"
-                />
-
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-950/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-sky-100 via-cyan-50 to-blue-100">
+                  <div className="flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-blue-700 text-4xl font-black text-white shadow-lg transition-transform duration-700 group-hover:scale-110">
+                    {initials(doctor.name)}
+                  </div>
+                </div>
 
               </div>
 
@@ -680,7 +661,11 @@ const Home = () => {
                 </h3>
 
                 <p className="mt-1 text-sm font-medium text-sky-600">
-                  {doctor.role}
+                  {doctor.speciality}
+                </p>
+
+                <p className="mt-1 text-xs font-medium text-slate-500">
+                  {doctor.qualification} · By prior appointment
                 </p>
 
                 <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-slate-600 transition-all duration-300 group-hover:translate-x-1 group-hover:text-sky-600">
